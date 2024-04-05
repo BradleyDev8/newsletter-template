@@ -9,14 +9,29 @@ export default function Newsletter() {
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // Reset error state
+    setError("");
+
     try {
       emailSchema.parse(email);
       console.log("Email is valid", email);
-      setShowAlert(true);
-      // Handle successful form submission
+
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setShowAlert(true);
+        setEmail("");
+      } else {
+        const data = await response.json();
+        setError(data.error);
+      }
     } catch (err: any) {
       if (err.issues && err.issues.length > 0) {
         setError(err.issues[0].message);
@@ -65,7 +80,7 @@ export default function Newsletter() {
         {showAlert && (
           <Alert className="text-green-300 bg-[#00800049] border-green-700">
             <AlertDescription>
-              Your email has been successfully submitted. <span>✅</span>{" "}
+              Your email has been successfully submitted <span>✅</span>{" "}
             </AlertDescription>
           </Alert>
         )}
