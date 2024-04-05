@@ -57,21 +57,29 @@ export default function Newsletter() {
             </span>
           </h1>
         </div>
-        <div>
-          <p className="text-center text-white">
+        <div className="flex justify-center">
+          <p className="text-center text-white w-10/12 ">
             Sign up for our newsletter to get the latest news and updates
           </p>
         </div>
         <div>
-          <form onSubmit={handleSubmit}>
+          <form className="w-full flex flex-col justify-center" onSubmit={handleSubmit}>
             <Input
-              className="bg-[#2c2c2c8a] border-none text-white text-lg text-center p-6 shadow-lg shadow-gray-600 "
+              className="bg-[#2c2c2c8a] border-none text-white text-lg text-center p-6 shadow-lg shadow-gray-600 w-8/12 sm:w-3/4 md:w-full lg:w-full xl:w-full mx-auto"
               placeholder="email@gmail.com"
               type="email"
               value={email}
               onChange={handleEmailChange}
             />
             {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+            <div className="flex w-full justify-center">
+              <button
+                type="submit"
+                className="mt-4 flex justify-center bg-transparent border border-gray-100 hover:bg-[#2c2c2c8a] text-white py-2 px-4 rounded-lg  md:hidden"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         </div>
         <p className="text-white text-sm">Join 100+ 👨‍💻 Reading our Newsletter</p>

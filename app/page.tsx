@@ -5,7 +5,7 @@ import Newsletter from "@/components/ui/Newsletter";
 export default function Home() {
   return (
     <>
-      <main className="h-screen w-screen">
+      <main className="h-screen w-screen bg-black min-h-screen">
         <WavyBackground>
           <div className="h-screen w-screen text-center flex justify-center align-middle items-center">
             <Newsletter />
