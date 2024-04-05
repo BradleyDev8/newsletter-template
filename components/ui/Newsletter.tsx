@@ -30,7 +30,11 @@ export default function Newsletter() {
         setEmail("");
       } else {
         const data = await response.json();
-        setError(data.error);
+        if (response.status === 400 && data.error === "Email already exists.") {
+          setError("This email has already been signed up.");
+        } else {
+          setError("An error occurred. Please try again.");
+        }
       }
     } catch (err: any) {
       if (err.issues && err.issues.length > 0) {
@@ -44,6 +48,7 @@ export default function Newsletter() {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setError("");
+    setShowAlert(false);
   };
 
   return (
